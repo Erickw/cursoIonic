@@ -10,12 +10,12 @@ import 'rxjs/add/operator/map';
 })
 export class HomePage {
 
-  private url: string = 'https://jsonplaceholder.typicode.com/users';
+  private url: string = 'https://jsonplaceholder.typicode.com/';
   public items: Array<{}>;
 
   constructor(public navCtrl: NavController, public http: Http) {
 
-    this.http.get(this.url)
+    this.http.get(this.url + "users")
       .map(res => res.json())
       .subscribe(data => {
         this.items = data;
@@ -26,6 +26,13 @@ export class HomePage {
 
   goToTestPage() {
     this.navCtrl.push(TestPage);
+  }
+
+  getItemInfo(id){    
+    this.navCtrl.push(TestPage,{
+      'item_id':id,
+      'api_url': this.url
+    });
   }
 
 }
